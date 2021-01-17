@@ -40,7 +40,6 @@ func GetAll() []*Process {
 		memPercentage, _ := p.MemoryPercentWithContext(context.Background())
 		user, _ := p.Username()
 		numThreads, _ := p.NumThreads()
-
 		timestamp := time.Unix(0, cT*int64(time.Millisecond))
 		pr = &Process{
 			Id:              p.Pid,
@@ -56,7 +55,7 @@ func GetAll() []*Process {
 		prList = append(prList, pr)
 	}
 	sort.Slice(prList, func(i, j int) bool {
-		return prList[i].VMS > prList[j].VMS
+		return prList[i].MemPercentage > prList[j].MemPercentage
 	})
 	return prList
 }
